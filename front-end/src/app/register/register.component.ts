@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  standalone: true, // Mark the component as standalone
-  imports: [FormsModule], // Include FormsModule here
+  standalone: true,
+  imports: [FormsModule, CommonModule],
 })
 export class RegisterComponent {
   form = {
@@ -19,6 +20,21 @@ export class RegisterComponent {
     dataPolicyAccepted: false,
   };
 
+  passwordsMismatch(): boolean {
+    return this.form.password !== this.form.confirmPassword;
+  }
+
+  showPassword = false;
+  showConfirmPassword = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
   onSubmit() {
     if (this.form.password !== this.form.confirmPassword) {
       alert('Las contraseñas no coinciden.');
@@ -26,5 +42,6 @@ export class RegisterComponent {
     }
 
     console.log('Form Submitted', this.form);
+    // TODO: send the form data to the backend
   }
 }
