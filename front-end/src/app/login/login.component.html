@@ -1,0 +1,45 @@
+<div class="container mx-auto max-w-sm mt-10">
+  <h2 class="text-2xl font-bold mb-5">Login</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700"
+        >Username</label
+      >
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        [(ngModel)]="form.username"
+        required
+      />
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700"
+        >Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        [(ngModel)]="form.password"
+        required
+      />
+    </div>
+    <div class="flex justify-center mt-5">
+      <button
+        type="submit"
+        [disabled]="isSubmitting"
+        class="bg-[#00DEC1] text-white py-2 px-12 rounded-[20px] shadow-md"
+        [ngClass]="{
+          'bg-gray-300 text-gray-500': isSubmitting,
+          'bg-[#00DEC1] text-white': !isSubmitting
+        }"
+        style="width: 181px; height: 41px"
+      >
+        Ingresar
+      </button>
+    </div>
+  </form>
+</div>
