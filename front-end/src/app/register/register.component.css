@@ -29,3 +29,13 @@ input[type="checkbox"]:checked::before {
   transform: translate(-50%, -50%);
   font-size: 14px;
 }
+
+.snackbar-success {
+  background-color: #4caf50; /* Green for success */
+  color: white;
+}
+
+.snackbar-error {
+  background-color: #f44336; /* Red for error */
+  color: white;
+}

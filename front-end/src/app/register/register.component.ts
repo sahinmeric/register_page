@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +27,11 @@ export class RegisterComponent {
   showConfirmPassword = false;
   isSubmitting = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -42,7 +47,10 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.passwordsMismatch()) {
-      alert('Las contraseñas no coinciden.');
+      this.snackBar.open('Las contraseñas no coinciden.', 'Cerrar', {
+        duration: 3000,
+        panelClass: ['snackbar-error'],
+      });
       return;
     }
 
@@ -58,8 +66,10 @@ export class RegisterComponent {
     // Send the form data to the backend
     this.http.post('https://localhost:7101/api/register', formData).subscribe(
       (response: any) => {
-        console.log('Form Submitted Successfully', response);
-        alert(response.message);
+        this.snackBar.open('Usuario registrado exitosamente.', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-success'],
+        });
 
         if (response.token) {
           sessionStorage.setItem('token', response.token);
@@ -69,8 +79,14 @@ export class RegisterComponent {
         this.isSubmitting = false;
       },
       (error) => {
-        console.error('Error submitting form', error);
-        alert('Error submitting form. Please try again.');
+        this.snackBar.open(
+          'Error al registrar. Por favor, inténtalo de nuevo.',
+          'Cerrar',
+          {
+            duration: 3000,
+            panelClass: ['snackbar-error'],
+          }
+        );
         this.isSubmitting = false;
       }
     );
