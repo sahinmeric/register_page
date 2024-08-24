@@ -1,0 +1,138 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+  <h1 class="text-2xl font-bold mb-4">¡Regístrate!</h1>
+  <p class="mb-4">Da el primer paso y solicita un crédito para tu Mipyme.</p>
+
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+    <!-- NIT -->
+    <div class="mb-4">
+      <label for="nit" class="block text-sm font-medium text-gray-700"
+        >NIT de tu empresa*</label
+      >
+      <input
+        type="text"
+        id="nit"
+        name="nit"
+        class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        [(ngModel)]="form.nit"
+        required
+      />
+    </div>
+
+    <!-- Email -->
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700"
+        >Correo de tu empresa*</label
+      >
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        [(ngModel)]="form.email"
+        required
+      />
+    </div>
+
+    <!-- Phone Number -->
+    <div class="mb-4">
+      <label for="phone" class="block text-sm font-medium text-gray-700"
+        >Número de celular*</label
+      >
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        [(ngModel)]="form.phone"
+        required
+      />
+    </div>
+
+    <!-- Password -->
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700"
+        >Crea tu contraseña*</label
+      >
+      <div class="relative">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          [(ngModel)]="form.password"
+          required
+        />
+        <span
+          class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+        >
+          <!-- Eye icon for password visibility toggle -->
+        </span>
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-4">
+      <label
+        for="confirmPassword"
+        class="block text-sm font-medium text-gray-700"
+        >Repite tu contraseña*</label
+      >
+      <div class="relative">
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          [(ngModel)]="form.confirmPassword"
+          required
+        />
+        <span
+          class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+        >
+          <!-- Eye icon for password visibility toggle -->
+        </span>
+      </div>
+    </div>
+
+    <!-- Terms and Conditions -->
+    <div class="mb-4">
+      <label class="flex items-center">
+        <input
+          type="checkbox"
+          name="termsAccepted"
+          [(ngModel)]="form.termsAccepted"
+          class="form-checkbox h-5 w-5 text-blue-600"
+          required
+        />
+        <span class="ml-2 text-gray-700"
+          >Autorización de los términos y condiciones de la plataforma</span
+        >
+      </label>
+    </div>
+
+    <!-- Data Policy -->
+    <div class="mb-4">
+      <label class="flex items-center">
+        <input
+          type="checkbox"
+          name="dataPolicyAccepted"
+          [(ngModel)]="form.dataPolicyAccepted"
+          class="form-checkbox h-5 w-5 text-blue-600"
+          required
+        />
+        <span class="ml-2 text-gray-700"
+          >Autorización de tratamiento de datos</span
+        >
+      </label>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      [disabled]="!registerForm.form.valid"
+      class="w-full bg-blue-500 text-white py-2 rounded-lg shadow-md hover:bg-blue-600"
+    >
+      Ingresar
+    </button>
+  </form>
+</div>
