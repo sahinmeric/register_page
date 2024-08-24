@@ -56,14 +56,17 @@ export class RegisterComponent {
     this.http.post('https://localhost:7101/api/register', formData).subscribe(
       (response: any) => {
         console.log('Form Submitted Successfully', response);
-        alert(response.message); // Show a message to the user
-        // Handle successful response, e.g., navigate to a different page
-        this.router.navigate(['/login']); // Adjust this according to your app's flow
+        alert(response.message);
+
+        if (response.token) {
+          sessionStorage.setItem('token', response.token);
+        }
+
+        this.router.navigate(['/login']);
       },
       (error) => {
         console.error('Error submitting form', error);
-        alert('Error submitting form. Please try again.'); // Handle the error scenario
-        // Handle error, e.g., show a notification or message to the user
+        alert('Error submitting form. Please try again.');
       }
     );
   }
