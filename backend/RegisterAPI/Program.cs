@@ -1,7 +1,28 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+// Configure JWT authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var key = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is missing");
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+        };
+    });
 
 // Optional: Add Swagger services (for API documentation, typically used in development)
 builder.Services.AddEndpointsApiExplorer();
@@ -18,13 +39,14 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseHttpsRedirection();  // Redirect HTTP to HTTPS
-    app.UseHsts();  // Enforce HTTP Strict Transport Security (HSTS) in production
+    app.UseHttpsRedirection();
+    app.UseHsts();
 }
 
 app.UseRouting();
 
-app.UseAuthorization();  // Authorization middleware
+app.UseAuthentication();  // Enable authentication middleware
+app.UseAuthorization();  // Enable authorization middleware
 
 app.MapControllers();  // Map controller routes
 
