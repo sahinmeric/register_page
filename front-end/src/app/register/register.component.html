@@ -1,138 +1,253 @@
 <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
   <h1 class="text-2xl font-bold mb-4">¡Regístrate!</h1>
   <p class="mb-4">Da el primer paso y solicita un crédito para tu Mipyme.</p>
+  <p class="mb-4">Diligencia los siguientes campos:</p>
 
   <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
     <!-- NIT -->
     <div class="mb-4">
-      <label for="nit" class="block text-sm font-medium text-gray-700"
-        >NIT de tu empresa*</label
-      >
+      <div class="flex justify-between items-center">
+        <label for="nit" class="block text-sm font-medium text-gray-700"
+          >NIT de tu empresa*</label
+        >
+        <div *ngIf="nit.invalid && nit.touched" class="text-red-500 text-sm">
+          <span *ngIf="nit.errors?.['required']"
+            >*Este campo es obligatorio</span
+          >
+          <span *ngIf="nit.errors?.['minlength']"
+            >NIT debe tener al menos 9 dígitos</span
+          >
+        </div>
+      </div>
       <input
         type="text"
         id="nit"
         name="nit"
-        class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         [(ngModel)]="form.nit"
         required
+        minlength="9"
+        #nit="ngModel"
       />
     </div>
 
     <!-- Email -->
     <div class="mb-4">
-      <label for="email" class="block text-sm font-medium text-gray-700"
-        >Correo de tu empresa*</label
-      >
+      <div class="flex justify-between items-center">
+        <label for="email" class="block text-sm font-medium text-gray-700"
+          >Correo de tu empresa*</label
+        >
+        <div
+          *ngIf="email.invalid && email.touched"
+          class="text-red-500 text-sm"
+        >
+          <span *ngIf="email.errors?.['required']"
+            >*Este campo es obligatorio</span
+          >
+          <span *ngIf="email.errors?.['email']"
+            >Correo electrónico inválido</span
+          >
+        </div>
+      </div>
       <input
         type="email"
         id="email"
         name="email"
-        class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         [(ngModel)]="form.email"
         required
+        email
+        #email="ngModel"
       />
     </div>
 
     <!-- Phone Number -->
     <div class="mb-4">
-      <label for="phone" class="block text-sm font-medium text-gray-700"
-        >Número de celular*</label
-      >
+      <div class="flex justify-between items-center">
+        <label for="phone" class="block text-sm font-medium text-gray-700"
+          >Número de celular*</label
+        >
+        <div
+          *ngIf="phone.invalid && phone.touched"
+          class="text-red-500 text-sm"
+        >
+          <span *ngIf="phone.errors?.['required']"
+            >*Este campo es obligatorio</span
+          >
+          <span *ngIf="phone.errors?.['pattern']"
+            >Número de celular inválido</span
+          >
+        </div>
+      </div>
       <input
         type="tel"
         id="phone"
         name="phone"
-        class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         [(ngModel)]="form.phone"
         required
+        pattern="[0-9]{10}"
+        #phone="ngModel"
       />
     </div>
 
     <!-- Password -->
-    <div class="mb-4">
-      <label for="password" class="block text-sm font-medium text-gray-700"
-        >Crea tu contraseña*</label
-      >
+    <div class="mb-4 relative">
+      <div class="flex justify-between items-center">
+        <label for="password" class="block text-sm font-medium text-gray-700"
+          >Crea tu contraseña*</label
+        >
+        <div
+          *ngIf="password.invalid && password.touched"
+          class="text-red-500 text-sm"
+        >
+          <span *ngIf="password.errors?.['required']"
+            >*Este campo es obligatorio</span
+          >
+          <span *ngIf="password.errors?.['minlength']"
+            >Mínimo 6 caracteres</span
+          >
+        </div>
+      </div>
       <div class="relative">
         <input
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           id="password"
           name="password"
-          class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pr-10"
           [(ngModel)]="form.password"
           required
+          minlength="6"
+          #password="ngModel"
         />
         <span
           class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+          (click)="togglePasswordVisibility()"
         >
-          <!-- Eye icon for password visibility toggle -->
+          <i
+            [class.fa-eye]="!showPassword"
+            [class.fa-eye-slash]="showPassword"
+            class="fas text-gray-500"
+          ></i>
         </span>
       </div>
     </div>
 
     <!-- Confirm Password -->
-    <div class="mb-4">
-      <label
-        for="confirmPassword"
-        class="block text-sm font-medium text-gray-700"
-        >Repite tu contraseña*</label
-      >
+    <div class="mb-4 relative">
+      <div class="flex justify-between items-center">
+        <label
+          for="confirmPassword"
+          class="block text-sm font-medium text-gray-700"
+          >Repite tu contraseña*</label
+        >
+        <div
+          *ngIf="confirmPassword.invalid && confirmPassword.touched"
+          class="text-red-500 text-sm"
+        >
+          <span *ngIf="confirmPassword.errors?.['required']"
+            >*Este campo es obligatorio</span
+          >
+        </div>
+      </div>
       <div class="relative">
         <input
-          type="password"
+          [type]="showConfirmPassword ? 'text' : 'password'"
           id="confirmPassword"
           name="confirmPassword"
-          class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pr-10"
           [(ngModel)]="form.confirmPassword"
           required
+          #confirmPassword="ngModel"
         />
         <span
           class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+          (click)="toggleConfirmPasswordVisibility()"
         >
-          <!-- Eye icon for password visibility toggle -->
+          <i
+            [class.fa-eye]="!showConfirmPassword"
+            [class.fa-eye-slash]="showConfirmPassword"
+            class="fas text-gray-500"
+          ></i>
         </span>
+      </div>
+      <!-- Password Mismatch Error -->
+      <div
+        *ngIf="
+          form.password !== form.confirmPassword && confirmPassword.touched
+        "
+        class="text-red-500 text-sm mt-1"
+      >
+        Las contraseñas no coinciden
       </div>
     </div>
 
     <!-- Terms and Conditions -->
     <div class="mb-4">
-      <label class="flex items-center">
+      <div class="flex items-center">
         <input
           type="checkbox"
+          id="termsAccepted"
           name="termsAccepted"
           [(ngModel)]="form.termsAccepted"
-          class="form-checkbox h-5 w-5 text-blue-600"
+          class="form-checkbox h-5 w-5 text-blue-600 mr-2"
           required
+          #termsAccepted="ngModel"
         />
-        <span class="ml-2 text-gray-700"
-          >Autorización de los términos y condiciones de la plataforma</span
+        <label for="termsAccepted" class="text-sm font-medium text-gray-700"
+          >Autorización de los términos y condiciones de la plataforma</label
         >
-      </label>
+      </div>
+      <div
+        *ngIf="termsAccepted.invalid && termsAccepted.touched"
+        class="text-red-500 text-sm mt-1"
+      >
+        *Debes aceptar los términos y condiciones
+      </div>
     </div>
 
     <!-- Data Policy -->
     <div class="mb-4">
-      <label class="flex items-center">
+      <div class="flex items-center">
         <input
           type="checkbox"
+          id="dataPolicyAccepted"
           name="dataPolicyAccepted"
           [(ngModel)]="form.dataPolicyAccepted"
-          class="form-checkbox h-5 w-5 text-blue-600"
+          class="form-checkbox h-5 w-5 text-blue-600 mr-2"
           required
+          #dataPolicyAccepted="ngModel"
         />
-        <span class="ml-2 text-gray-700"
-          >Autorización de tratamiento de datos</span
+        <label
+          for="dataPolicyAccepted"
+          class="text-sm font-medium text-gray-700"
+          >Autorización de tratamiento de datos</label
         >
-      </label>
+      </div>
+      <div
+        *ngIf="dataPolicyAccepted.invalid && dataPolicyAccepted.touched"
+        class="text-red-500 text-sm mt-1"
+      >
+        *Debes aceptar el tratamiento de datos
+      </div>
     </div>
 
     <!-- Submit Button -->
-    <button
-      type="submit"
-      [disabled]="!registerForm.form.valid"
-      class="w-full bg-blue-500 text-white py-2 rounded-lg shadow-md hover:bg-blue-600"
-    >
-      Ingresar
-    </button>
+    <div class="flex justify-center mt-5">
+      <button
+        type="submit"
+        [disabled]="!registerForm.form.valid || passwordsMismatch()"
+        class="bg-[#00DEC1] text-white py-2 px-12 rounded-[20px] shadow-md"
+        [ngClass]="{
+          'bg-gray-300 text-gray-500':
+            !registerForm.form.valid || passwordsMismatch(),
+          'bg-[#00DEC1] text-white':
+            registerForm.form.valid && !passwordsMismatch()
+        }"
+        style="width: 181px; height: 41px"
+      >
+        Ingresar
+      </button>
+    </div>
   </form>
 </div>
