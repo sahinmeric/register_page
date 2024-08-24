@@ -249,13 +249,15 @@
     <div class="flex justify-center mt-5">
       <button
         type="submit"
-        [disabled]="!registerForm.form.valid || passwordsMismatch()"
+        [disabled]="
+          !registerForm.form.valid || passwordsMismatch() || isSubmitting
+        "
         class="bg-[#00DEC1] text-white py-2 px-12 rounded-[20px] shadow-md"
         [ngClass]="{
           'bg-gray-300 text-gray-500':
-            !registerForm.form.valid || passwordsMismatch(),
+            !registerForm.form.valid || passwordsMismatch() || isSubmitting,
           'bg-[#00DEC1] text-white':
-            registerForm.form.valid && !passwordsMismatch()
+            registerForm.form.valid && !passwordsMismatch() && !isSubmitting
         }"
         style="width: 181px; height: 41px"
       >

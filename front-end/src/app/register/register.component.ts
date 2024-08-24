@@ -24,6 +24,7 @@ export class RegisterComponent {
 
   showPassword = false;
   showConfirmPassword = false;
+  isSubmitting = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -45,6 +46,8 @@ export class RegisterComponent {
       return;
     }
 
+    this.isSubmitting = true;
+
     const formData = {
       NIT: this.form.nit,
       Email: this.form.email,
@@ -63,10 +66,12 @@ export class RegisterComponent {
         }
 
         this.router.navigate(['/login']);
+        this.isSubmitting = false;
       },
       (error) => {
         console.error('Error submitting form', error);
         alert('Error submitting form. Please try again.');
+        this.isSubmitting = false;
       }
     );
   }
