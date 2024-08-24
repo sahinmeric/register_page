@@ -9,6 +9,6 @@ public class RegisterController : ControllerBase
     public IActionResult Register([FromBody] RegisterModel model)
     {
         // Handle registration logic here (e.g., save to database)
-        return Ok("User registered successfully");
+        return Ok(new { message = "User registered successfully" });
     }
 }
