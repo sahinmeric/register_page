@@ -28,9 +28,9 @@ export class RegisterComponent {
   isSubmitting = false;
 
   constructor(
-    private http: HttpClient,
+    public http: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar
+    public snackBar: MatSnackBar
   ) {}
 
   togglePasswordVisibility() {
