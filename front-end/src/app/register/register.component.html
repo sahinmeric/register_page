@@ -107,18 +107,15 @@
     <!-- Password -->
     <div class="mb-4 relative">
       <div class="flex justify-between items-center">
-        <label for="password" class="block text-sm font-medium text-gray-700"
-          >Crea tu contraseña*</label
-        >
+        <label for="password" class="block text-sm font-medium text-gray-700">
+          Crea tu contraseña*
+        </label>
         <div
           *ngIf="password.invalid && password.touched"
           class="text-red-500 text-sm"
         >
           <span *ngIf="password.errors?.['required']"
             >*Este campo es obligatorio</span
-          >
-          <span *ngIf="password.errors?.['minlength']"
-            >Mínimo 6 caracteres</span
           >
         </div>
       </div>
@@ -130,7 +127,6 @@
           class="mt-1 p-2 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pr-10"
           [(ngModel)]="form.password"
           required
-          minlength="6"
           #password="ngModel"
         />
         <span
@@ -143,6 +139,15 @@
             class="fas text-gray-500"
           ></i>
         </span>
+      </div>
+
+      <!-- Password Validation Message -->
+      <div
+        *ngIf="!isPasswordValid() && password.touched"
+        class="text-red-500 text-sm mt-1"
+      >
+        La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas y
+        minúsculas.
       </div>
     </div>
 
@@ -195,7 +200,7 @@
       </div>
     </div>
 
-    <!-- Terms and Conditions -->
+    <!-- Autorización de Términos y Condiciones -->
     <div class="mb-4">
       <div class="flex items-center">
         <input
@@ -207,9 +212,10 @@
           required
           #termsAccepted="ngModel"
         />
-        <label for="termsAccepted" class="text-sm font-medium text-gray-700"
-          >Autorización de los términos y condiciones de la plataforma</label
-        >
+        <label for="termsAccepted" class="text-sm font-medium text-gray-700">
+          Autorización de los términos y condiciones de la plataforma
+          <span class="text-red-500">(requerido)</span>
+        </label>
       </div>
       <div
         *ngIf="termsAccepted.invalid && termsAccepted.touched"
@@ -219,7 +225,7 @@
       </div>
     </div>
 
-    <!-- Data Policy -->
+    <!-- Autorización de Tratamiento de Datos -->
     <div class="mb-4">
       <div class="flex items-center">
         <input
@@ -234,8 +240,10 @@
         <label
           for="dataPolicyAccepted"
           class="text-sm font-medium text-gray-700"
-          >Autorización de tratamiento de datos</label
         >
+          Autorización de tratamiento de datos
+          <span class="text-red-500">(requerido)</span>
+        </label>
       </div>
       <div
         *ngIf="dataPolicyAccepted.invalid && dataPolicyAccepted.touched"
