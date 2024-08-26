@@ -74,31 +74,33 @@ export class RegisterComponent {
     };
 
     // Send the form data to the backend
-    this.http.post('https://localhost:7101/api/register', formData).subscribe({
-      next: (response: any) => {
-        this.snackBar.open('Usuario registrado exitosamente.', 'Cerrar', {
-          duration: 3000,
-          panelClass: ['snackbar-success'],
-        });
-
-        if (response.token) {
-          sessionStorage.setItem('token', response.token);
-        }
-
-        this.router.navigate(['/login']);
-        this.isSubmitting = false;
-      },
-      error: (error) => {
-        this.snackBar.open(
-          'Error al registrar. Por favor, inténtalo de nuevo.',
-          'Cerrar',
-          {
+    this.http
+      .post('https://mydotnetapp23423.azurewebsites.net/api/register', formData)
+      .subscribe({
+        next: (response: any) => {
+          this.snackBar.open('Usuario registrado exitosamente.', 'Cerrar', {
             duration: 3000,
-            panelClass: ['snackbar-error'],
+            panelClass: ['snackbar-success'],
+          });
+
+          if (response.token) {
+            sessionStorage.setItem('token', response.token);
           }
-        );
-        this.isSubmitting = false;
-      },
-    });
+
+          this.router.navigate(['/login']);
+          this.isSubmitting = false;
+        },
+        error: (error) => {
+          this.snackBar.open(
+            'Error al registrar. Por favor, inténtalo de nuevo.',
+            'Cerrar',
+            {
+              duration: 3000,
+              panelClass: ['snackbar-error'],
+            }
+          );
+          this.isSubmitting = false;
+        },
+      });
   }
 }

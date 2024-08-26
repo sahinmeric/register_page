@@ -40,7 +40,10 @@ export class LoginComponent {
     };
 
     this.http
-      .post('https://localhost:7101/api/auth/token', loginData)
+      .post(
+        'https://mydotnetapp23423.azurewebsites.net/api/auth/token',
+        loginData
+      )
       .subscribe({
         next: (response: any) => {
           if (response.token) {
