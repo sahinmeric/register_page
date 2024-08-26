@@ -31,16 +31,13 @@
         #nit="ngModel"
       />
       <!-- Display other validation errors below the input -->
-      <div
-        *ngIf="(nit.errors?.['pattern'] || nit.errors?.['minlength']) && nit.touched"
-        class="text-red-500 text-sm mt-1"
-      >
-        <span *ngIf="nit.errors?.['pattern']"
-          >NIT debe contener solo números</span
-        >
-        <span *ngIf="nit.errors?.['minlength']"
-          >NIT debe tener al menos 9 dígitos</span
-        >
+      <div *ngIf="nit.invalid && nit.touched" class="text-red-500 text-sm mt-1">
+        <span *ngIf="nit.errors?.['pattern']">
+          NIT debe contener solo números
+        </span>
+        <span *ngIf="!nit.errors?.['pattern'] && nit.errors?.['minlength']">
+          NIT debe tener al menos 9 dígitos
+        </span>
       </div>
     </div>
 
