@@ -1,27 +1,117 @@
-# RegisterPage
+# Register Page Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+This repository contains a full-stack web application consisting of a frontend built with Angular and a backend built with .NET. The application allows users to register with their company details, including NIT, email, phone number, and password. Upon successful registration, a JWT token is generated and stored in session storage for subsequent authentication.
 
-## Development server
+## Technologies Used
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Frontend:**
+  - Angular
+  - TypeScript
+  - Tailwind CSS
+  - Angular Material for UI components
+  - Netlify for deployment
 
-## Code scaffolding
+- **Backend:**
+  - .NET 8.0
+  - C#
+  - JWT Authentication
+  - CORS configuration
+  - Azure App Service for deployment
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- User registration with form validation.
+- JWT token generation upon successful registration.
+- Secure API endpoints protected by JWT authentication.
+- Responsive design using Tailwind CSS.
+- Deployed on Netlify (frontend) and Azure App Service (backend).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Prerequisites
 
-## Running unit tests
+- **Node.js** (for frontend development)
+- **.NET SDK 8.0** (for backend development)
+- **Angular CLI** (for managing Angular projects)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Setting Up the Frontend
 
-## Running end-to-end tests
+1. Navigate to the `frontend` directory:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    ```bash
+    cd front-end
+    ```
 
-## Further help
+2. Install the required packages:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+    ```bash
+    npm install
+    ```
+
+3. Run the Angular application:
+
+    ```bash
+    ng serve
+    ```
+
+    The frontend should now be running on `http://localhost:4200`.
+
+## Setting Up the Backend
+
+1. Navigate to the `backend` directory:
+
+    ```bash
+    cd backend/RegisterAPI
+    ```
+
+2. Restore the required packages:
+
+    ```bash
+    dotnet restore
+    ```
+
+3. Build the application:
+
+    ```bash
+    dotnet build
+    ```
+
+4. Run the application:
+
+    ```bash
+    dotnet run
+    ```
+
+    The backend should now be running on `https://localhost:7101`.
+
+## Running the Application Locally
+
+- **Frontend**: The Angular application runs on `http://localhost:4200` by default.
+- **Backend**: The .NET API runs on `https://localhost:7101` by default.
+
+To test the full functionality, ensure both the frontend and backend are running simultaneously.
+
+## Deployment
+
+### Frontend Deployment (Netlify)
+
+1. Build the Angular application:
+
+    ```bash
+    ng build --configuration production
+    ```
+
+2. Deploy the contents of the `dist` folder to Netlify using the Netlify CLI or web interface.
+
+### Backend Deployment (Azure App Service)
+
+1. Create a zip file of the contents inside the `publish` folder.
+2. Deploy the zip file using the Azure CLI:
+
+    ```bash
+    az webapp deploy --resource-group MyResourceGroup --name MyDotNetApp23423 --src-path publish.zip
+    ```
+
+Ensure CORS is correctly configured on the backend to allow requests from the frontend URL.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
